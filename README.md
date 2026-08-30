@@ -77,9 +77,19 @@ A transparent, non-bypassable workflow state machine:
 
 ### 🏠 The Platform
 
-| Premium Landing Page | Dynamic Dark Theme |
-|:---:|:---:|
-| <img src="docs/screenshots/home.png" width="400"> | <img src="docs/screenshots/dark-theme.png" width="400"> |
+<div align="center">
+  <h4>🏠 Premium Landing Page — Light Theme</h4>
+  <img src="docs/screenshots/home.png" alt="Premium Landing Page Light Theme" width="800">
+  <p><em>The clean, professional entry point for users to explore the FixFlow platform and register for an account.</em></p>
+</div>
+
+<br>
+
+<div align="center">
+  <h4>🌙 Premium Landing Page — Dark Theme</h4>
+  <img src="docs/screenshots/dark-theme.png" alt="Premium Landing Page Dark Theme" width="800">
+  <p><em>The elegant dark mode variation, seamlessly toggled by the user and persisted via LocalStorage.</em></p>
+</div>
 
 ### 🔐 Authentication & Access
 
