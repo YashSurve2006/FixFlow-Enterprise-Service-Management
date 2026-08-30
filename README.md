@@ -1,6 +1,4 @@
-<div align="center">
-  <img src="https://raw.githubusercontent.com/YashSurve2006/FixFlow-Enterprise-Service-Management/main/docs/screenshots/home.png" alt="FixFlow Banner" width="100%">
-</div>
+
 
 # FixFlow — Enterprise Service Management Platform
 
