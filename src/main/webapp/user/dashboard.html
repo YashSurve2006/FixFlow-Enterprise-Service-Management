@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - FixFlow</title>
+    <meta name="description" content="FixFlow User Dashboard — Submit and track campus service requests.">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/catalog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-tools"></i> FixFlow
+            </div>
+            <ul class="sidebar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" data-target="view-overview"><i class="fas fa-chart-pie"></i> Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-target="view-my-requests"><i class="fas fa-list"></i> My Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-target="view-catalog"><i class="fas fa-th-large"></i> Service Catalog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-target="view-create-request"><i class="fas fa-plus-circle"></i> New Request</a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <h2 class="page-title">User Dashboard</h2>
+                <div class="topbar-actions">
+                    <button class="theme-toggle-btn" title="Toggle Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar" id="avatar-initial">U</div>
+                        <div class="user-info">
+                            <span class="user-name" id="current-user-name">Loading...</span>
+                            <span class="user-role" id="current-user-role">USER</span>
+                        </div>
+                        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: var(--text-muted);"></i>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item" id="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- Overview View -->
+                <div id="view-overview" class="view-section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon primary"><i class="fas fa-folder-open"></i></div>
+                            <div class="stat-details">
+                                <h3 id="stat-total">0</h3>
+                                <p>Total Requests</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon warning"><i class="fas fa-clock"></i></div>
+                            <div class="stat-details">
+                                <h3 id="stat-pending">0</h3>
+                                <p>Pending Review</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon primary"><i class="fas fa-wrench"></i></div>
+                            <div class="stat-details">
+                                <h3 id="stat-inprogress">0</h3>
+                                <p>In Progress</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon success"><i class="fas fa-check-circle"></i></div>
+                            <div class="stat-details">
+                                <h3 id="stat-resolved">0</h3>
+                                <p>Resolved / Closed</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Service Catalog on Overview -->
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="catalog-section-header">
+                            <h3><i class="fas fa-th-large" style="color: var(--primary-color); margin-right: 0.5rem;"></i>Quick Service Selection</h3>
+                            <a class="btn btn-outline" style="font-size:0.8rem; padding: 0.4rem 0.9rem;" data-target="view-catalog" href="#">View All</a>
+                        </div>
+                        <div class="catalog-grid" id="overview-catalog-grid">
+                            <div class="empty-state"><div class="spinner"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Requests View -->
+                <div id="view-my-requests" class="view-section">
+                    <div class="filters-bar">
+                        <select id="filter-status">
+                            <option value="">All Statuses</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="ASSIGNED">Assigned</option>
+                            <option value="IN_PROGRESS">In Progress</option>
+                            <option value="RESOLVED">Resolved</option>
+                            <option value="CLOSED">Closed</option>
+                        </select>
+                        <select id="filter-priority">
+                            <option value="">All Priorities</option>
+                            <option value="LOW">Low</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="HIGH">High</option>
+                            <option value="URGENT">Urgent</option>
+                        </select>
+                        <select id="filter-category">
+                            <option value="">All Categories</option>
+                        </select>
+                        <input type="text" id="filter-search" placeholder="Search title or location...">
+                        <button class="btn btn-primary" id="btn-apply-filters"><i class="fas fa-search"></i> Apply</button>
+                    </div>
+
+                    <div class="card">
+                        <div class="table-container">
+                            <table class="table" id="requests-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Category</th>
+                                        <th>Title</th>
+                                        <th>Location</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Created</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td colspan="8" class="empty-state">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination-controls" id="pagination-container"></div>
+                    </div>
+                </div>
+
+                <!-- Service Catalog View -->
+                <div id="view-catalog" class="view-section">
+                    <div class="card">
+                        <div class="catalog-section-header">
+                            <h3><i class="fas fa-th-large" style="color: var(--primary-color); margin-right: 0.5rem;"></i>Service Catalog</h3>
+                            <p style="font-size:0.85rem; color: var(--text-secondary); margin: 0;">Select a service below to create a new request</p>
+                        </div>
+                        <div class="catalog-grid" id="full-catalog-grid">
+                            <div class="empty-state"><div class="spinner"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create Request View -->
+                <div id="view-create-request" class="view-section">
+                    <div style="max-width: 700px; margin: 0 auto;">
+                        <!-- Step 1: Select Category -->
+                        <div class="card" id="step-select-category">
+                            <h3 style="margin-bottom: 0.4rem;">Step 1 — Select Service Category</h3>
+                            <p style="font-size:0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">Choose the type of service issue you want to report.</p>
+                            <div class="catalog-grid" id="create-catalog-grid">
+                                <div class="empty-state"><div class="spinner"></div></div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Fill Form -->
+                        <div class="card" id="step-fill-form" style="margin-top: 1rem; display: none;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                                <div id="selected-cat-icon"></div>
+                                <div>
+                                    <h3 style="margin: 0;" id="selected-cat-title">New Service Request</h3>
+                                    <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);" id="selected-cat-subtitle">Fill in the details below</p>
+                                </div>
+                                <button class="btn btn-outline" id="btn-change-category" style="margin-left: auto; font-size: 0.8rem;">
+                                    <i class="fas fa-arrow-left"></i> Change
+                                </button>
+                            </div>
+                            <form id="form-create-request">
+                                <input type="hidden" id="req-category-id">
+                                <div class="form-group">
+                                    <label class="form-label">Title <span style="color: var(--danger-color);">*</span></label>
+                                    <input type="text" id="req-title" class="form-control" placeholder="Brief summary of the issue" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Location <span style="color: var(--danger-color);">*</span></label>
+                                    <input type="text" id="req-location" class="form-control" placeholder="e.g. Main Building - Room 204" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Priority <span style="color: var(--danger-color);">*</span></label>
+                                    <select id="req-priority" class="form-control" required>
+                                        <option value="LOW">🟢 Low — Non-urgent, routine</option>
+                                        <option value="MEDIUM" selected>🟡 Medium — Needs attention soon</option>
+                                        <option value="HIGH">🟠 High — Affects daily operations</option>
+                                        <option value="URGENT">🔴 Urgent — Immediate action required</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Description <span style="color: var(--danger-color);">*</span></label>
+                                    <textarea id="req-description" class="form-control" rows="4" placeholder="Describe the issue in detail..." required></textarea>
+                                    <p class="form-hint" id="req-description-hint"></p>
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="btn-submit-request" style="width: 100%; padding: 0.85rem;">
+                                    <i class="fas fa-paper-plane"></i> Submit Service Request
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Request Details Modal -->
+    <div class="modal-backdrop" id="request-details-backdrop">
+        <div class="modal" style="max-width: 580px;">
+            <div class="modal-header">
+                <h3>Request Details</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="request-details-content">Loading...</div>
+            <div class="modal-footer">
+                <button class="btn btn-outline modal-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/catalog.js"></script>
+    <script src="../js/user.js"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - FixFlow</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-top-actions">
+        <a href="index.html" class="btn btn-outline" style="background:var(--bg-surface);"><i class="fas fa-home"></i> Home</a>
+        <button class="theme-toggle-btn" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="auth-page">
+        <div class="auth-split-left" style="background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary-color) 100%);">
+            <div class="auth-branding">
+                <h1>Join FixFlow.</h1>
+                <p>Create an account to start reporting and tracking your maintenance requests across the campus.</p>
+                
+                <div style="margin-top: 3rem;">
+                    <div style="display:flex; align-items:center; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center;">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div>
+                            <h4 style="color:white; margin:0;">Fast Resolution</h4>
+                            <p style="font-size:0.875rem; margin:0; opacity:0.8;">Direct assignment to dedicated technicians.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="auth-split-right">
+            <div class="auth-card" style="max-width: 500px;">
+                <div class="auth-header">
+                    <h2>Create Account</h2>
+                    <p>Enter your details to register</p>
+                </div>
+                
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" required placeholder="John Doe">
+                    </div>
+                    
+                    <div style="display:flex; gap: 1rem;">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label" for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required placeholder="name@company.com">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label" for="phone">Phone (Optional)</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="123-456-7890">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" class="form-control" required placeholder="••••••••" minlength="6">
+                            <button type="button" class="password-toggle" id="toggleRegPassword">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength" id="pwdStrength">
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                        </div>
+                        <span class="strength-text" id="pwdText">Too short</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" class="form-control" required placeholder="••••••••">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+                
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="login.html">Sign in instead</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.getElementById('toggleRegPassword').addEventListener('click', function() {
+            const pwd = document.getElementById('password');
+            const icon = this.querySelector('i');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                pwd.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        const pwdInput = document.getElementById('password');
+        const pwdStrength = document.getElementById('pwdStrength');
+        const pwdText = document.getElementById('pwdText');
+
+        pwdInput.addEventListener('input', function() {
+            const val = this.value;
+            pwdStrength.className = 'password-strength';
+            
+            if (val.length === 0) {
+                pwdText.textContent = '';
+                return;
+            }
+            if (val.length < 6) {
+                pwdStrength.classList.add('strength-weak');
+                pwdText.textContent = 'Weak';
+                return;
+            }
+            
+            let score = 0;
+            if (val.length > 7) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+            
+            if (score <= 1) {
+                pwdStrength.classList.add('strength-fair');
+                pwdText.textContent = 'Fair';
+            } else if (score === 2 || score === 3) {
+                pwdStrength.classList.add('strength-good');
+                pwdText.textContent = 'Good';
+            } else {
+                pwdStrength.classList.add('strength-strong');
+                pwdText.textContent = 'Strong';
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                Toast.show('Passwords do not match', 'error');
+                return;
+            }
+            
+            try {
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+                btn.disabled = true;
+                
+                await apiPost('/auth/register', { name, email, phone, password, role: 'USER' });
+                
+                Toast.show('Account created successfully. Please sign in.', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+            } catch (error) {
+                Toast.show(error.message || 'Registration failed.', 'error');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

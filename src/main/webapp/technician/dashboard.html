@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technician Dashboard - FixFlow</title>
+    <meta name="description" content="FixFlow Technician Dashboard — Manage your assigned service requests.">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/catalog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-tools"></i> FixFlow
+            </div>
+            <ul class="sidebar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" data-target="view-assigned"><i class="fas fa-clipboard-list"></i> Assigned Work</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-target="view-in-progress"><i class="fas fa-wrench"></i> In Progress</a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h2 class="page-title">Technician Dashboard</h2>
+                <div class="topbar-actions">
+                    <button class="theme-toggle-btn" title="Toggle Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar" id="avatar-initial">T</div>
+                        <div class="user-info">
+                            <span class="user-name" id="current-user-name">Loading...</span>
+                            <span class="user-role">TECHNICIAN</span>
+                        </div>
+                        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: var(--text-muted);"></i>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item" id="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- Assigned Work View -->
+                <div id="view-assigned" class="view-section active">
+                    <!-- Stat Cards -->
+                    <div class="stats-grid" style="margin-bottom: 1.5rem;">
+                        <div class="stat-card">
+                            <div class="stat-icon primary"><i class="fas fa-user-tag"></i></div>
+                            <div class="stat-details">
+                                <h3 id="stat-assigned">0</h3>
+                                <p>Assigned to Me</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon warning"><i class="fas fa-wrench"></i></div>
+                            <div class="stat-details">
+                                <h3 id="stat-wip">0</h3>
+                                <p>In Progress</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon success"><i class="fas fa-check-circle"></i></div>
+                            <div class="stat-details">
+                                <h3 id="stat-done">0</h3>
+                                <p>Resolved Today</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-bottom: 1.25rem;"><i class="fas fa-clipboard-list" style="color:var(--primary-color);margin-right:0.5rem;"></i>My Active Assignments</h3>
+                        <div class="table-container">
+                            <table class="table" id="tech-requests-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Service</th>
+                                        <th>Title</th>
+                                        <th>Location</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Assigned</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td colspan="8" class="empty-state">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- In Progress View -->
+                <div id="view-in-progress" class="view-section">
+                    <div class="card">
+                        <h3 style="margin-bottom: 1.25rem;"><i class="fas fa-wrench" style="color:var(--primary-color);margin-right:0.5rem;"></i>In Progress</h3>
+                        <div class="table-container">
+                            <table class="table" id="tech-wip-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Service</th>
+                                        <th>Title</th>
+                                        <th>Location</th>
+                                        <th>Priority</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td colspan="6" class="empty-state">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Request Details Modal -->
+    <div class="modal-backdrop" id="request-details-backdrop">
+        <div class="modal" style="max-width: 580px;">
+            <div class="modal-header">
+                <h3>Request Details &amp; Actions</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="request-details-content">Loading...</div>
+            <div class="modal-footer" id="request-details-actions">
+                <button class="btn btn-outline modal-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/catalog.js"></script>
+    <script src="../js/technician.js"></script>
+</body>
+</html>

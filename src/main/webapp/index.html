@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FixFlow - Smart Service Request Management</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- 1. NAVIGATION BAR -->
+    <nav class="landing-navbar">
+        <div class="landing-brand">
+            <i class="fas fa-tools"></i> FixFlow
+        </div>
+        <div class="landing-links">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#workflow">Workflow</a>
+            <a href="#services">Services</a>
+            <a href="#tech-stack">Technology</a>
+        </div>
+        <div class="landing-actions">
+            <button class="theme-toggle-btn" id="landingThemeToggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <a href="login.html" class="btn btn-outline">Login</a>
+            <a href="register.html" class="btn btn-primary">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- 2. HERO SECTION -->
+    <section class="hero-section" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Smarter Service Management.<br><span class="gradient-text">Faster Resolution.</span></h1>
+            <p class="hero-subtitle">
+                A centralized RESTful service management platform that enables users to create service requests, technicians to manage assigned work, and administrators to control the complete service lifecycle.
+            </p>
+            <div class="hero-buttons">
+                <a href="register.html" class="btn btn-primary" style="padding: 0.875rem 2rem; font-size: 1rem;">Get Started</a>
+                <a href="#features" class="btn btn-outline" style="padding: 0.875rem 2rem; font-size: 1rem;">Explore Platform</a>
+            </div>
+            <div class="hero-trust">
+                <i class="fas fa-shield-alt" style="color:var(--status-success); margin-right: 0.5rem;"></i> Built with Java • REST APIs • JDBC • MySQL • JWT
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="mock-dashboard">
+                <div class="mock-card" style="border-left: 4px solid var(--status-assigned);">
+                    <div>
+                        <h4 style="margin-bottom:0.25rem;">Network Issue — Lab 204</h4>
+                        <span class="text-muted" style="font-size:0.75rem;"><i class="fas fa-network-wired"></i> IT Support • Just now</span>
+                    </div>
+                    <span class="badge badge-assigned">ASSIGNED</span>
+                </div>
+                <div class="mock-card" style="border-left: 4px solid var(--status-progress);">
+                    <div>
+                        <h4 style="margin-bottom:0.25rem;">AC Maintenance — Room 101</h4>
+                        <span class="text-muted" style="font-size:0.75rem;"><i class="fas fa-snowflake"></i> HVAC • 2 hours ago</span>
+                    </div>
+                    <span class="badge badge-progress">IN PROGRESS</span>
+                </div>
+                <div class="mock-card" style="border-left: 4px solid var(--status-pending);">
+                    <div>
+                        <h4 style="margin-bottom:0.25rem;">Electrical Repair — Block B</h4>
+                        <span class="text-muted" style="font-size:0.75rem;"><i class="fas fa-bolt"></i> Electrical • Today</span>
+                    </div>
+                    <span class="badge badge-pending">PENDING</span>
+                </div>
+                <div class="mock-card" style="border-left: 4px solid var(--status-resolved);">
+                    <div>
+                        <h4 style="margin-bottom:0.25rem;">Projector Not Working</h4>
+                        <span class="text-muted" style="font-size:0.75rem;"><i class="fas fa-video"></i> Equipment • Yesterday</span>
+                    </div>
+                    <span class="badge badge-resolved">RESOLVED</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. HERO STATISTICS -->
+    <section class="stats-strip">
+        <div class="stat-item">
+            <div class="stat-value">5+</div>
+            <div class="stat-label">REST APIs</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">GET<span style="font-size: 1.5rem; color: var(--text-muted)">/</span>POST</div>
+            <div class="stat-label">HTTP Methods</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">3</div>
+            <div class="stat-label">User Roles</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">5+</div>
+            <div class="stat-label">Workflow States</div>
+        </div>
+    </section>
+
+    <!-- 4. WHAT IS FIXFLOW? -->
+    <section class="section-padding">
+        <div class="split-layout">
+            <div class="split-text">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">What is FixFlow?</h2>
+                <p class="text-secondary" style="font-size: 1.1rem; margin-bottom: 2rem;">
+                    FixFlow is a centralized service request and workflow management platform designed to digitize the complete lifecycle of service requests.
+                </p>
+                <h4 style="margin-bottom: 1rem; color: var(--status-danger)">The Problem</h4>
+                <p class="text-secondary" style="margin-bottom: 1.5rem;">
+                    Traditional service management involves manual requests, unclear ownership, delayed communication, poor tracking, lack of accountability, and difficult administration.
+                </p>
+                <h4 style="margin-bottom: 1rem; color: var(--status-success)">The FixFlow Solution</h4>
+                <p class="text-secondary">
+                    We replace chaos with a deterministic state-machine workflow powered by strict Role-Based Access Control and a unified dashboard for all participants.
+                </p>
+            </div>
+            <div class="split-visual">
+                <h3 style="text-align: center; margin-bottom: 2rem;">Digital Lifecycle</h3>
+                <div class="flow-step">
+                    <div class="flow-icon"><i class="fas fa-user"></i></div>
+                    <div><strong>User</strong> submits a structured service request</div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-icon"><i class="fas fa-file-signature"></i></div>
+                    <div><strong>Admin</strong> reviews, categorizes & assigns</div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-icon"><i class="fas fa-tools"></i></div>
+                    <div><strong>Technician</strong> processes & resolves the task</div>
+                </div>
+                <div class="flow-step" style="margin-bottom: 0;">
+                    <div class="flow-icon" style="background: var(--status-success-bg); color: var(--status-success);"><i class="fas fa-check-circle"></i></div>
+                    <div><strong>Closure</strong> with full transparent audit trail</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. CORE FEATURES -->
+    <section class="section-padding bg-alt" id="features">
+        <div class="text-center" style="margin-bottom: 4rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Platform Capabilities</h2>
+            <p class="text-secondary">Enterprise-grade features engineered for scalability.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-ticket-alt feature-icon"></i>
+                <h3>Service Request Management</h3>
+                <p class="text-secondary">Create, view, update and delete service requests with precision.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-code feature-icon"></i>
+                <h3>RESTful API Architecture</h3>
+                <p class="text-secondary">Clean REST endpoints built on robust Jakarta REST / JAX-RS standards.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt feature-icon"></i>
+                <h3>Authentication</h3>
+                <p class="text-secondary">Secure registration and login with HTTP response payload validation.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-key feature-icon"></i>
+                <h3>JWT Authorization</h3>
+                <p class="text-secondary">Token-based authentication with strict role-aware access control.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-lock feature-icon"></i>
+                <h3>BCrypt Password Security</h3>
+                <p class="text-secondary">Passwords are stored as secure one-way hashes rather than plaintext.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users-cog feature-icon"></i>
+                <h3>Role-Based Access Control</h3>
+                <p class="text-secondary">Strictly enforced USER, TECHNICIAN and ADMIN permissions.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-people-arrows feature-icon"></i>
+                <h3>Technician Assignment</h3>
+                <p class="text-secondary">Administrators assign requests to specific technicians for resolution.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-project-diagram feature-icon"></i>
+                <h3>Workflow State Machine</h3>
+                <p class="text-secondary">PENDING → ASSIGNED → IN_PROGRESS → RESOLVED → CLOSED.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-search feature-icon"></i>
+                <h3>Search & Filtering</h3>
+                <p class="text-secondary">Search requests by title, description, location and category dynamically.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-layer-group feature-icon"></i>
+                <h3>Sorting & Pagination</h3>
+                <p class="text-secondary">Efficient API-level pagination and sorting to handle large data sets.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-database feature-icon"></i>
+                <h3>Transactional Operations</h3>
+                <p class="text-secondary">Assignment and status operations maintain strict database consistency.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-pie feature-icon"></i>
+                <h3>Statistics Dashboard</h3>
+                <p class="text-secondary">Administrative request statistics and category insights.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. SERVICE CATEGORIES -->
+    <section class="section-padding" id="services">
+        <div class="text-center" style="margin-bottom: 4rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Services We Manage</h2>
+            <p class="text-secondary">A highly extensible catalog tailored for campus facility management.</p>
+        </div>
+        <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="feature-card text-center" style="padding: 1.5rem;">
+                <i class="fas fa-laptop feature-icon" style="font-size: 2rem;"></i>
+                <h4 style="margin-bottom: 0.5rem;">IT Support</h4>
+                <p class="text-muted" style="font-size: 0.8rem;">Hardware & Software</p>
+            </div>
+            <div class="feature-card text-center" style="padding: 1.5rem;">
+                <i class="fas fa-wifi feature-icon" style="font-size: 2rem;"></i>
+                <h4 style="margin-bottom: 0.5rem;">Network</h4>
+                <p class="text-muted" style="font-size: 0.8rem;">Connectivity & Wi-Fi</p>
+            </div>
+            <div class="feature-card text-center" style="padding: 1.5rem;">
+                <i class="fas fa-bolt feature-icon" style="font-size: 2rem;"></i>
+                <h4 style="margin-bottom: 0.5rem;">Electrical</h4>
+                <p class="text-muted" style="font-size: 0.8rem;">Power & Lighting</p>
+            </div>
+            <div class="feature-card text-center" style="padding: 1.5rem;">
+                <i class="fas fa-faucet feature-icon" style="font-size: 2rem;"></i>
+                <h4 style="margin-bottom: 0.5rem;">Plumbing</h4>
+                <p class="text-muted" style="font-size: 0.8rem;">Water & Pipes</p>
+            </div>
+            <div class="feature-card text-center" style="padding: 1.5rem;">
+                <i class="fas fa-snowflake feature-icon" style="font-size: 2rem;"></i>
+                <h4 style="margin-bottom: 0.5rem;">HVAC / AC</h4>
+                <p class="text-muted" style="font-size: 0.8rem;">Cooling & Heating</p>
+            </div>
+            <div class="feature-card text-center" style="padding: 1.5rem;">
+                <i class="fas fa-broom feature-icon" style="font-size: 2rem;"></i>
+                <h4 style="margin-bottom: 0.5rem;">Housekeeping</h4>
+                <p class="text-muted" style="font-size: 0.8rem;">Cleaning & Hygiene</p>
+            </div>
+            <div class="feature-card text-center" style="padding: 1.5rem;">
+                <i class="fas fa-chair feature-icon" style="font-size: 2rem;"></i>
+                <h4 style="margin-bottom: 0.5rem;">Furniture</h4>
+                <p class="text-muted" style="font-size: 0.8rem;">Desks & Carpentry</p>
+            </div>
+            <div class="feature-card text-center" style="padding: 1.5rem;">
+                <i class="fas fa-building feature-icon" style="font-size: 2rem;"></i>
+                <h4 style="margin-bottom: 0.5rem;">Facility</h4>
+                <p class="text-muted" style="font-size: 0.8rem;">General Maintenance</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. WORKFLOW VISUALIZER -->
+    <section class="section-padding bg-alt" id="workflow">
+        <div class="text-center">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">How FixFlow Works</h2>
+            <p class="text-secondary">A transparent, predictable 5-step lifecycle.</p>
+        </div>
+        
+        <div class="workflow-container">
+            <div class="workflow-step">
+                <div class="workflow-node"><i class="fas fa-file-medical"></i></div>
+                <div class="workflow-label">01. Create</div>
+                <p class="text-muted" style="font-size:0.875rem;">User submits request</p>
+            </div>
+            <div class="workflow-step">
+                <div class="workflow-node"><i class="fas fa-user-check"></i></div>
+                <div class="workflow-label">02. Assign</div>
+                <p class="text-muted" style="font-size:0.875rem;">Admin delegates task</p>
+            </div>
+            <div class="workflow-step">
+                <div class="workflow-node"><i class="fas fa-tools"></i></div>
+                <div class="workflow-label">03. Work</div>
+                <p class="text-muted" style="font-size:0.875rem;">Tech begins work</p>
+            </div>
+            <div class="workflow-step">
+                <div class="workflow-node"><i class="fas fa-check-double"></i></div>
+                <div class="workflow-label">04. Resolve</div>
+                <p class="text-muted" style="font-size:0.875rem;">Issue is fixed</p>
+            </div>
+            <div class="workflow-step">
+                <div class="workflow-node" style="border-color:var(--status-closed); color:var(--status-closed)"><i class="fas fa-archive"></i></div>
+                <div class="workflow-label">05. Close</div>
+                <p class="text-muted" style="font-size:0.875rem;">Admin verifies & closes</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. ROLE-BASED EXPERIENCE -->
+    <section class="section-padding">
+        <div class="text-center" style="margin-bottom: 4rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">One Platform. Three Powerful Experiences.</h2>
+            <p class="text-secondary">Specialized workflows injected via Role-Based Access Control.</p>
+        </div>
+        <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <div class="feature-card text-center">
+                <i class="fas fa-user feature-icon" style="color: var(--status-info); background: var(--status-info-bg);"></i>
+                <h3 style="margin-bottom: 1rem;">USER</h3>
+                <ul style="text-align: left; color: var(--text-secondary); line-height: 2;">
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> Create detailed requests</li>
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> Track real-time status</li>
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> Edit pending tickets</li>
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> View complete history</li>
+                </ul>
+            </div>
+            <div class="feature-card text-center" style="border-color: var(--primary-color); box-shadow: var(--shadow-lg);">
+                <i class="fas fa-tools feature-icon" style="color: var(--primary-color); background: var(--primary-light);"></i>
+                <h3 style="margin-bottom: 1rem;">TECHNICIAN</h3>
+                <ul style="text-align: left; color: var(--text-secondary); line-height: 2;">
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> View assigned requests</li>
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> Accept & start work</li>
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> Manage active tasks</li>
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> Mark requests resolved</li>
+                </ul>
+            </div>
+            <div class="feature-card text-center">
+                <i class="fas fa-shield-alt feature-icon" style="color: var(--status-warning); background: var(--status-warning-bg);"></i>
+                <h3 style="margin-bottom: 1rem;">ADMIN</h3>
+                <ul style="text-align: left; color: var(--text-secondary); line-height: 2;">
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> Manage users & roles</li>
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> Assign technicians</li>
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> Monitor global operations</li>
+                    <li><i class="fas fa-check" style="color: var(--status-success); margin-right: 0.5rem;"></i> View platform statistics</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. TECHNOLOGY STACK -->
+    <section class="section-padding bg-alt" id="tech-stack">
+        <div class="text-center" style="margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Built With Modern Tech</h2>
+            <p class="text-secondary">A highly scalable, RESTful backend with a vanilla frontend architecture.</p>
+        </div>
+        
+        <div style="max-width: 900px; margin: 0 auto;">
+            <h4 style="margin-top: 2rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Backend Core</h4>
+            <div class="tech-badges" style="justify-content: flex-start;">
+                <div class="tech-badge"><i class="fab fa-java" style="color: #f89820;"></i> Java 21</div>
+                <div class="tech-badge"><i class="fas fa-server" style="color: var(--primary-color);"></i> Jakarta REST (JAX-RS)</div>
+                <div class="tech-badge"><i class="fas fa-layer-group"></i> Jersey</div>
+                <div class="tech-badge"><i class="fas fa-database"></i> JDBC</div>
+                <div class="tech-badge"><i class="fas fa-feather-alt" style="color: #c22026;"></i> Maven</div>
+                <div class="tech-badge"><i class="fas fa-cat" style="color: #f8db08;"></i> Apache Tomcat 10.1.50</div>
+            </div>
+
+            <h4 style="margin-top: 2rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Database & Security</h4>
+            <div class="tech-badges" style="justify-content: flex-start;">
+                <div class="tech-badge"><i class="fas fa-database" style="color: #00758f;"></i> MySQL 8</div>
+                <div class="tech-badge"><i class="fas fa-key" style="color: var(--status-warning);"></i> JWT Auth</div>
+                <div class="tech-badge"><i class="fas fa-lock"></i> BCrypt Hashing</div>
+                <div class="tech-badge"><i class="fas fa-shield-alt"></i> Role-Based Control</div>
+                <div class="tech-badge"><i class="fas fa-code"></i> PreparedStatements</div>
+            </div>
+
+            <h4 style="margin-top: 2rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Frontend</h4>
+            <div class="tech-badges" style="justify-content: flex-start;">
+                <div class="tech-badge"><i class="fab fa-html5" style="color: #e34f26;"></i> HTML5</div>
+                <div class="tech-badge"><i class="fab fa-css3-alt" style="color: #1572b6;"></i> CSS3</div>
+                <div class="tech-badge"><i class="fab fa-js" style="color: #f7df1e;"></i> Vanilla JavaScript</div>
+                <div class="tech-badge"><i class="fas fa-network-wired"></i> Fetch API</div>
+                <div class="tech-badge"><i class="fas fa-mobile-alt"></i> Responsive Design</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. REST API SHOWCASE -->
+    <section class="section-padding">
+        <div class="text-center" style="margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">REST API Architecture</h2>
+            <p class="text-secondary">Fully spec-compliant endpoints adhering to REST principles.</p>
+        </div>
+        
+        <div class="api-showcase">
+            <div style="color: var(--text-muted); margin-bottom: 1.5rem;">// Base URL: http://localhost:8080/FixFlow/api</div>
+            
+            <div style="margin-bottom: 1rem; color: var(--status-info);">/* Authentication */</div>
+            <div class="api-endpoint">
+                <span class="api-method method-post">POST</span>
+                <span class="api-path">/auth/login</span>
+                <span class="badge badge-assigned" style="margin-left:auto">AUTH</span>
+            </div>
+            
+            <div style="margin-bottom: 1rem; margin-top: 2rem; color: var(--status-info);">/* Service Requests CRUD */</div>
+            <div class="api-endpoint">
+                <span class="api-method method-get">GET</span>
+                <span class="api-path">/requests?page=1&size=10</span>
+                <span class="badge badge-low" style="margin-left:auto">SEARCH & PAGINATION</span>
+            </div>
+            <div class="api-endpoint">
+                <span class="api-method method-post">POST</span>
+                <span class="api-path">/requests</span>
+                <span class="badge badge-urgent" style="margin-left:auto">CREATE</span>
+            </div>
+            <div class="api-endpoint">
+                <span class="api-method method-put">PUT</span>
+                <span class="api-path">/requests/{id}</span>
+                <span class="badge badge-assigned" style="margin-left:auto">UPDATE</span>
+            </div>
+            <div class="api-endpoint">
+                <span class="api-method method-delete">DELETE</span>
+                <span class="api-path">/requests/{id}</span>
+                <span class="badge badge-urgent" style="margin-left:auto">REMOVE</span>
+            </div>
+
+            <div style="margin-bottom: 1rem; margin-top: 2rem; color: var(--status-info);">/* Workflow & Analytics */</div>
+            <div class="api-endpoint">
+                <span class="api-method method-post">POST</span>
+                <span class="api-path">/assignments</span>
+                <span class="badge badge-progress" style="margin-left:auto">WORKFLOW</span>
+            </div>
+            <div class="api-endpoint" style="border-bottom: none;">
+                <span class="api-method method-get">GET</span>
+                <span class="api-path">/requests/statistics</span>
+                <span class="badge badge-resolved" style="margin-left:auto">ANALYTICS</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. SECURITY & DATABASE VISUALIZER -->
+    <section class="section-padding bg-alt">
+        <div class="split-layout">
+            <div class="split-text">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Security Built Into Every Layer</h2>
+                <p class="text-secondary" style="margin-bottom: 2rem;">Designed with security-focused practices from the database to the API layer.</p>
+                
+                <div class="flow-step">
+                    <div class="flow-icon"><i class="fas fa-lock"></i></div>
+                    <div><strong>Password Protection</strong><br><span class="text-muted" style="font-size:0.875rem">BCrypt salted hashing</span></div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-icon"><i class="fas fa-key"></i></div>
+                    <div><strong>Authentication</strong><br><span class="text-muted" style="font-size:0.875rem">JWT-based identity with SecurityContext</span></div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-icon"><i class="fas fa-database"></i></div>
+                    <div><strong>Database Security</strong><br><span class="text-muted" style="font-size:0.875rem">PreparedStatements prevent SQL Injection</span></div>
+                </div>
+                <div class="flow-step" style="margin-bottom: 0;">
+                    <div class="flow-icon"><i class="fas fa-ban"></i></div>
+                    <div><strong>API Security</strong><br><span class="text-muted" style="font-size:0.875rem">401/403 authorization protection</span></div>
+                </div>
+            </div>
+            <div class="split-visual" style="background: transparent; border: none; box-shadow: none;">
+                <h3 style="text-align: center;">Entity Architecture</h3>
+                <div class="db-visualizer">
+                    <div class="db-table">USERS</div>
+                    <i class="fas fa-long-arrow-alt-down db-arrow"></i>
+                    <div class="db-table" style="border-color: var(--status-info);">SERVICE REQUESTS</div>
+                    <i class="fas fa-long-arrow-alt-down db-arrow"></i>
+                    <div style="display: flex; gap: 2rem;">
+                        <div class="db-table" style="border-color: var(--status-success);">CATEGORIES</div>
+                        <div class="db-table" style="border-color: var(--status-warning);">ASSIGNMENTS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. ADVANCED DASHBOARD PREVIEW & WHY FIXFLOW -->
+    <section class="section-padding">
+        <div class="text-center" style="margin-bottom: 4rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Why FixFlow?</h2>
+            <p class="text-secondary">We simplify operations so you can focus on resolution.</p>
+        </div>
+        
+        <div class="features-grid" style="margin-bottom: 4rem;">
+            <div class="feature-card">
+                <h3 style="margin-bottom: 0.5rem;"><i class="fas fa-layer-group text-muted"></i> Centralized Management</h3>
+                <p class="text-secondary">Everything in one platform. No more scattered emails or calls.</p>
+            </div>
+            <div class="feature-card">
+                <h3 style="margin-bottom: 0.5rem;"><i class="fas fa-eye text-muted"></i> Transparent Workflow</h3>
+                <p class="text-secondary">Every request has a clear, auditable lifecycle.</p>
+            </div>
+            <div class="feature-card">
+                <h3 style="margin-bottom: 0.5rem;"><i class="fas fa-stopwatch text-muted"></i> Faster Resolution</h3>
+                <p class="text-secondary">Technicians receive clearly assigned tasks immediately.</p>
+            </div>
+        </div>
+
+        <!-- Dashboard Visual Showcase -->
+        <div class="mock-dashboard" style="max-width: 1000px; margin: 0 auto; transform: none; box-shadow: var(--shadow-floating);">
+            <div style="display: flex; gap: 2rem;">
+                <!-- Sidebar fake -->
+                <div style="width: 200px; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 1rem; padding-right: 1rem; display: none;">
+                    <div style="height: 20px; background: var(--border-color); border-radius: 4px; width: 100%;"></div>
+                    <div style="height: 20px; background: var(--border-color); border-radius: 4px; width: 80%;"></div>
+                </div>
+                <!-- Main Content Fake -->
+                <div style="flex: 1;">
+                    <h3 style="margin-bottom: 1.5rem;">Dashboard Overview</h3>
+                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                        <div style="flex:1; background: var(--bg-main); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <div class="text-muted" style="font-size: 0.8rem;">TOTAL REQUESTS</div>
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--primary-color)">142</div>
+                        </div>
+                        <div style="flex:1; background: var(--bg-main); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <div class="text-muted" style="font-size: 0.8rem;">PENDING</div>
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--status-warning)">12</div>
+                        </div>
+                        <div style="flex:1; background: var(--bg-main); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <div class="text-muted" style="font-size: 0.8rem;">RESOLVED</div>
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--status-success)">115</div>
+                        </div>
+                    </div>
+                    <table class="table" style="background: var(--bg-main); border-radius: 8px;">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#SR-142</td>
+                                <td>Network Connectivity Down</td>
+                                <td>IT Support</td>
+                                <td><span class="badge badge-assigned">ASSIGNED</span></td>
+                            </tr>
+                            <tr>
+                                <td>#SR-141</td>
+                                <td>Leaking Pipe</td>
+                                <td>Plumbing</td>
+                                <td><span class="badge badge-progress">IN PROGRESS</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. FINAL CTA -->
+    <section class="section-padding bg-alt text-center">
+        <h2 style="font-size: 3rem; margin-bottom: 1.5rem;">Ready to simplify service management?</h2>
+        <p class="text-secondary" style="font-size: 1.25rem; margin-bottom: 3rem;">
+            Create requests. Assign work. Track progress. Resolve faster.
+        </p>
+        <div class="hero-buttons" style="justify-content: center;">
+            <a href="register.html" class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 50px;">Create Your Account</a>
+            <a href="login.html" class="btn btn-outline" style="padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 50px;">Login</a>
+        </div>
+    </section>
+
+    <!-- 14. FOOTER -->
+    <footer class="landing-footer">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">
+                    <i class="fas fa-tools"></i> FIXFLOW
+                </div>
+                <p class="text-secondary" style="line-height: 1.6; margin-bottom: 1rem;">
+                    Smart Service Request & Workflow Management Platform. Digitizing request lifecycles for the modern enterprise.
+                </p>
+                <p class="text-secondary" style="font-weight: 600;">Academic Web Services Project</p>
+            </div>
+            
+            <div>
+                <h4 class="footer-heading">PLATFORM</h4>
+                <div class="footer-links">
+                    <a href="#">Service Requests</a>
+                    <a href="#">Technician Workflow</a>
+                    <a href="#">Administration</a>
+                    <a href="#">Analytics Dashboard</a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="footer-heading">TECHNOLOGY</h4>
+                <div class="footer-links">
+                    <a href="#">Java 21</a>
+                    <a href="#">Jakarta REST</a>
+                    <a href="#">MySQL & JDBC</a>
+                    <a href="#">JWT Security</a>
+                    <a href="#">Fetch API</a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="footer-heading">RESOURCES</h4>
+                <div class="footer-links">
+                    <a href="#">Documentation</a>
+                    <a href="#">Architecture Map</a>
+                    <a href="#">User Guide</a>
+                    <a href="#">Viva Notes</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div>&copy; 2026 Yash Surve. FixFlow.</div>
+            <div style="font-weight: 600; color: var(--primary-color);">Designed & Developed by YASH SURVE</div>
+        </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script>
+        // Attach ThemeManager explicitly to the landing page toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleBtn = document.getElementById('landingThemeToggle');
+            if (toggleBtn && typeof ThemeManager !== 'undefined') {
+                toggleBtn.addEventListener('click', () => {
+                    ThemeManager.toggleTheme();
+                    updateToggleIcon();
+                });
+                
+                // Set initial icon
+                updateToggleIcon();
+                
+                function updateToggleIcon() {
+                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    toggleBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

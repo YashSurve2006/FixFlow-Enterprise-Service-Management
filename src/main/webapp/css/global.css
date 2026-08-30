@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Brand Colors - Immutable across themes */
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --primary-light: rgba(79, 70, 229, 0.1);
+    --accent-color: #0ea5e9;
+    
+    /* Semantic Colors - LIGHT MODE */
+    --bg-main: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-surface-hover: #f1f5f9;
+    --bg-surface-elevated: #ffffff;
+    
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --text-inverse: #ffffff;
+    
+    --border-color: #e2e8f0;
+    --border-hover: #cbd5e1;
+    
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+    --shadow-floating: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Status Colors */
+    --status-success: #10b981;
+    --status-success-bg: #d1fae5;
+    --status-warning: #f59e0b;
+    --status-warning-bg: #fef3c7;
+    --status-danger: #ef4444;
+    --status-danger-bg: #fee2e2;
+    --status-info: #3b82f6;
+    --status-info-bg: #dbeafe;
+    --status-neutral: #64748b;
+    --status-neutral-bg: #f1f5f9;
+
+    /* Workflow Specific (Mapped to Status) */
+    --status-pending: var(--status-warning);
+    --status-pending-bg: var(--status-warning-bg);
+    --status-assigned: var(--status-info);
+    --status-assigned-bg: var(--status-info-bg);
+    --status-progress: #8b5cf6;
+    --status-progress-bg: #ede9fe;
+    --status-resolved: var(--status-success);
+    --status-resolved-bg: var(--status-success-bg);
+    --status-closed: var(--status-neutral);
+    --status-closed-bg: var(--status-neutral-bg);
+
+    /* Radii & Layout */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-full: 9999px;
+    --sidebar-width: 260px;
+    --header-height: 70px;
+    
+    /* Animation Speeds */
+    --transition-fast: 0.15s ease-in-out;
+    --transition-normal: 0.3s ease-in-out;
+}
+
+[data-theme="dark"] {
+    /* Semantic Colors - DARK MODE */
+    --bg-main: #0f172a;
+    --bg-surface: #1e293b;
+    --bg-surface-hover: #334155;
+    --bg-surface-elevated: #334155;
+    
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --text-inverse: #0f172a;
+    
+    --border-color: #334155;
+    --border-hover: #475569;
+    
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+    --shadow-floating: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+
+    /* Adjust status backgrounds for dark mode (subtle tints) */
+    --status-success-bg: rgba(16, 185, 129, 0.15);
+    --status-warning-bg: rgba(245, 158, 11, 0.15);
+    --status-danger-bg: rgba(239, 68, 68, 0.15);
+    --status-info-bg: rgba(59, 130, 246, 0.15);
+    --status-neutral-bg: rgba(100, 116, 139, 0.15);
+    --status-progress-bg: rgba(139, 92, 246, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--primary-hover);
+}
+
+ul {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
+
+/* Base focus outline for accessibility */
+*:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
