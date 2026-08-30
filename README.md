@@ -145,6 +145,12 @@ graph TD
 
 ```text
 FixFlow/
+├── docs/
+│   ├── screenshots/      
+│   ├── ARCHITECTURE.md   # Deep-dive Architecture Docs
+│   ├── USER_GUIDE.md     # End-User Manual
+│   ├── VIVA_NOTES.md     # Academic Presentation Notes
+│   └── PROJECT_PRESENTATION.md
 ├── src/
 │   └── main/
 │       ├── java/
@@ -160,6 +166,8 @@ FixFlow/
 │       │       └── util/         # DB Connection & Helper Utilities
 │       ├── resources/
 │       │   └── database/         # SQL Schemas
+│       │       ├── fixflow_schema.sql
+│       │       └── insert_test_data.sql
 │       └── webapp/
 │           ├── admin/            # Admin HTML UI
 │           ├── technician/       # Technician HTML UI
@@ -172,9 +180,6 @@ FixFlow/
 │           └── register.html     
 ├── pom.xml                       # Maven Dependencies
 ├── README.md                     
-├── ARCHITECTURE.md               # Deep-dive Architecture Docs
-├── USER_GUIDE.md                 # End-User Manual
-├── VIVA_NOTES.md                 # Academic Presentation Notes
 └── .env.example                  # Environment Template
 ```
 
@@ -346,7 +351,7 @@ cd FixFlow
 Open your MySQL client (e.g., Workbench) and run the setup script:
 ```sql
 SOURCE src/main/resources/database/fixflow_schema.sql;
-SOURCE insert_test_data.sql;
+SOURCE src/main/resources/database/insert_test_data.sql;
 ```
 
 **3. Configure Environment Variables:**
@@ -408,9 +413,9 @@ This project serves as a comprehensive capstone demonstrating profound software 
 ## 🔗 Documentation References
 
 For more detailed technical insights, review the supplementary documentation:
-- [Architecture Deep Dive](ARCHITECTURE.md)
-- [End User Guide](USER_GUIDE.md)
-- [Viva Presentation Notes](VIVA_NOTES.md)
+- [Architecture Deep Dive](docs/ARCHITECTURE.md)
+- [End User Guide](docs/USER_GUIDE.md)
+- [Viva Presentation Notes](docs/VIVA_NOTES.md)
 
 ---
 
