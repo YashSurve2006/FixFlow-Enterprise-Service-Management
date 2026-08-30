@@ -75,21 +75,27 @@ A transparent, non-bypassable workflow state machine:
 
 ## 📸 Application Screenshots
 
-### 🏠 The Platform
+### 🏠 Premium Landing Page
 
-<div align="center">
-  <h4>🏠 Premium Landing Page — Light Theme</h4>
-  <img src="docs/screenshots/home.png" alt="Premium Landing Page Light Theme" width="800">
-  <p><em>The clean, professional entry point for users to explore the FixFlow platform and register for an account.</em></p>
-</div>
+FixFlow opens with a modern enterprise-style landing experience that introduces the platform, service-management workflow, role-based capabilities, technology stack, and core platform features.
+
+<p align="center">
+  <img src="docs/screenshots/home.png" alt="FixFlow Premium Landing Page - Light Theme" width="900"/>
+</p>
+
+**☀️ Light Theme**
+
+This view demonstrates the premium light-theme landing experience.
 
 <br>
 
-<div align="center">
-  <h4>🌙 Premium Landing Page — Dark Theme</h4>
-  <img src="docs/screenshots/dark-theme.png" alt="Premium Landing Page Dark Theme" width="800">
-  <p><em>The elegant dark mode variation, seamlessly toggled by the user and persisted via LocalStorage.</em></p>
-</div>
+<p align="center">
+  <img src="docs/screenshots/dark-theme.png" alt="FixFlow Premium Landing Page - Dark Theme" width="900"/>
+</p>
+
+**🌙 Dark Theme**
+
+The same landing experience supports a persistent dark theme with the platform's premium visual design system.
 
 ### 🔐 Authentication & Access
 
