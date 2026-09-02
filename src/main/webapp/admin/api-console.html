@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Console - FixFlow Admin</title>
+    <meta name="description" content="FixFlow Admin API Console — Developer API workspace">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .api-workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 992px) { .api-workspace { grid-template-columns: 1fr; } }
+        
+        .api-panel {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .method-badge {
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            display: inline-block;
+            min-width: 70px;
+            text-align: center;
+        }
+        .method-GET { background: #10b981; }
+        .method-POST { background: #3b82f6; }
+        .method-PUT { background: #f59e0b; }
+        .method-PATCH { background: #8b5cf6; }
+        .method-DELETE { background: #ef4444; }
+        
+        .code-editor, .response-viewer {
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid #333;
+            width: 100%;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .code-editor {
+            height: 200px;
+            resize: vertical;
+        }
+        .response-viewer {
+            min-height: 250px;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre;
+            margin: 0;
+        }
+        
+        .api-header {
+            background: linear-gradient(135deg, color-mix(in srgb, var(--primary-color) 10%, var(--bg-surface)), var(--bg-surface));
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: color-mix(in srgb, #10b981 15%, transparent);
+            color: #10b981;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid color-mix(in srgb, #10b981 30%, transparent);
+        }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; }
+        
+        .endpoint-input { font-family: monospace; font-size: 1rem; padding: 0.75rem; }
+        
+        .param-group {
+            background: var(--bg-main);
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+        
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        
+        .example-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .example-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .history-list { list-style: none; padding: 0; margin: 0; }
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            font-family: monospace;
+        }
+        .history-item:last-child { border-bottom: none; }
+        
+        .arch-diagram {
+            background: var(--bg-main);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .arch-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 2rem;
+            background: var(--bg-surface);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            min-width: 250px;
+            box-shadow: var(--shadow-sm);
+        }
+        .arch-arrow { color: var(--text-muted); font-size: 1.5rem; padding: 0.25rem 0; }
+        
+        .res-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            padding: 0.75rem;
+            background: var(--bg-main);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+        .res-meta-item { display: flex; flex-direction: column; }
+        .res-meta-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-family: sans-serif; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-tools"></i> FixFlow
+            </div>
+            <ul class="sidebar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#"><i class="fas fa-terminal"></i> API Console</a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h2 class="page-title">API Console</h2>
+                <div class="topbar-actions">
+                    <button class="theme-toggle-btn" title="Toggle Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar" id="avatar-initial">A</div>
+                        <div class="user-info">
+                            <span class="user-name" id="current-user-name">Loading...</span>
+                            <span class="user-role">ADMIN</span>
+                        </div>
+                        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: var(--text-muted);"></i>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item" id="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area">
+                
+                <div class="api-header">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h1 style="margin: 0 0 0.5rem 0; font-size: 1.8rem;">Explore &amp; Test FixFlow RESTful Web Services</h1>
+                            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.1rem; max-width: 600px;">
+                                Test GET, POST, PUT, PATCH and DELETE endpoints directly against the running FixFlow backend.
+                            </p>
+                        </div>
+                        <div class="status-indicator" id="api-status-btn">
+                            <div class="status-dot"></div> <span id="api-status-text">API ONLINE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-workspace">
+                    <!-- REQUEST BUILDER -->
+                    <div class="api-panel">
+                        <h3 style="margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;"><i class="fas fa-sliders-h" style="color:var(--primary-color);margin-right:0.5rem;"></i> Request Builder</h3>
+                        
+                        <div style="display: flex; gap: 0.5rem; align-items: stretch; margin-top: 0.5rem;">
+                            <select id="api-method" class="form-control" style="width: auto; font-weight: bold;">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="PATCH">PATCH</option>
+                                <option value="DELETE">DELETE</option>
+                            </select>
+                            <input type="text" id="api-endpoint" class="form-control endpoint-input" style="flex: 1;" placeholder="/api/..." value="/api/requests">
+                        </div>
+
+                        <div class="param-group">
+                            <label style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 0.5rem; display: block;">HEADERS</label>
+                            <div style="font-family: monospace; font-size: 0.85rem; color: var(--text-primary);">
+                                <div>Content-Type: application/json</div>
+                                <div style="margin-top: 0.4rem;">Authorization: Bearer &lt;current_jwt_token&gt;</div>
+                            </div>
+                        </div>
+
+                        <div id="body-section" style="display: none;">
+                            <label style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 0.5rem; display: block;">REQUEST BODY (JSON)</label>
+                            <textarea id="api-body" class="code-editor" placeholder="{&#10;  &#10;}"></textarea>
+                        </div>
+
+                        <button id="btn-send-request" class="btn btn-primary" style="padding: 1rem; font-size: 1rem; margin-top: auto;">
+                            <i class="fas fa-paper-plane"></i> Send Request
+                        </button>
+                    </div>
+
+                    <!-- RESPONSE VIEWER -->
+                    <div class="api-panel">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+                            <h3 style="margin: 0;"><i class="fas fa-code" style="color:var(--primary-color);margin-right:0.5rem;"></i> Response</h3>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" id="btn-copy-res"><i class="fas fa-copy"></i> Copy</button>
+                                <button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" id="btn-clear-res"><i class="fas fa-eraser"></i> Clear</button>
+                            </div>
+                        </div>
+
+                        <div class="res-meta" id="res-meta-panel" style="opacity: 0.5;">
+                            <div class="res-meta-item">
+                                <span class="res-meta-label">Status</span>
+                                <strong id="res-status" style="font-size: 1.1rem;">-</strong>
+                            </div>
+                            <div class="res-meta-item">
+                                <span class="res-meta-label">Time</span>
+                                <strong id="res-time" style="font-size: 1.1rem;">-</strong>
+                            </div>
+                        </div>
+
+                        <pre id="api-response" class="response-viewer" style="margin-top: 0;">Awaiting request...</pre>
+                    </div>
+                </div>
+
+                <!-- QUICK EXAMPLES -->
+                <div style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">Quick Examples</h3>
+                    <div class="grid-cards">
+                        <div class="example-card" onclick="window.loadExample('GET', '/api/health')">
+                            <h4 style="margin: 0 0 0.5rem 0;">🩺 Health Check</h4>
+                            <span class="method-badge method-GET">GET</span> <span style="font-family: monospace; font-size:0.85rem;">/api/health</span>
+                        </div>
+                        <div class="example-card" onclick="window.loadExample('GET', '/api/requests')">
+                            <h4 style="margin: 0 0 0.5rem 0;">📋 Service Requests</h4>
+                            <span class="method-badge method-GET">GET</span> <span style="font-family: monospace; font-size:0.85rem;">/api/requests</span>
+                        </div>
+                        <div class="example-card" onclick="window.loadExample('POST', '/api/requests', '{\n  &quot;categoryId&quot;: 1,\n  &quot;title&quot;: &quot;Broken AC&quot;,\n  &quot;description&quot;: &quot;AC is not cooling&quot;,\n  &quot;priority&quot;: &quot;HIGH&quot;,\n  &quot;location&quot;: &quot;Room 101&quot;\n}')">
+                            <h4 style="margin: 0 0 0.5rem 0;">➕ Create Request</h4>
+                            <span class="method-badge method-POST">POST</span> <span style="font-family: monospace; font-size:0.85rem;">/api/requests</span>
+                        </div>
+                        <div class="example-card" onclick="window.loadExample('POST', '/api/requests/1/assignment', '{\n  &quot;technicianId&quot;: 2\n}')">
+                            <h4 style="margin: 0 0 0.5rem 0;">👨‍🔧 Assign Technician</h4>
+                            <span class="method-badge method-POST">POST</span> <span style="font-family: monospace; font-size:0.85rem;">/api/requests/{id}/assignment</span>
+                        </div>
+                        <div class="example-card" onclick="window.loadExample('PATCH', '/api/requests/1/status', '{\n  &quot;status&quot;: &quot;IN_PROGRESS&quot;\n}')">
+                            <h4 style="margin: 0 0 0.5rem 0;">🔄 Update Status</h4>
+                            <span class="method-badge method-PATCH">PATCH</span> <span style="font-family: monospace; font-size:0.85rem;">/api/requests/{id}/status</span>
+                        </div>
+                        <div class="example-card" onclick="window.loadExample('GET', '/api/requests/statistics')">
+                            <h4 style="margin: 0 0 0.5rem 0;">📊 Request Statistics</h4>
+                            <span class="method-badge method-GET">GET</span> <span style="font-family: monospace; font-size:0.85rem;">/api/requests/statistics</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- HTTP METHODS INFO -->
+                <div style="margin-top: 2.5rem;">
+                    <h3 style="margin-bottom: 1rem;">HTTP Methods</h3>
+                    <div class="grid-cards" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
+                        <div class="param-group" style="margin: 0;">
+                            <span class="method-badge method-GET">GET</span>
+                            <p style="margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--text-secondary);">Retrieve resources</p>
+                        </div>
+                        <div class="param-group" style="margin: 0;">
+                            <span class="method-badge method-POST">POST</span>
+                            <p style="margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--text-secondary);">Create new resources</p>
+                        </div>
+                        <div class="param-group" style="margin: 0;">
+                            <span class="method-badge method-PUT">PUT</span>
+                            <p style="margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--text-secondary);">Replace/update a complete resource</p>
+                        </div>
+                        <div class="param-group" style="margin: 0;">
+                            <span class="method-badge method-PATCH">PATCH</span>
+                            <p style="margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--text-secondary);">Partially update a resource</p>
+                        </div>
+                        <div class="param-group" style="margin: 0;">
+                            <span class="method-badge method-DELETE">DELETE</span>
+                            <p style="margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--text-secondary);">Remove a resource</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; padding-bottom: 2rem;">
+                    <!-- ARCHITECTURE -->
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">FixFlow Architecture</h3>
+                        <div class="arch-diagram">
+                            <div class="arch-box">HTML / CSS</div>
+                            <i class="fas fa-arrow-down arch-arrow"></i>
+                            <div class="arch-box">JavaScript fetch()</div>
+                            <i class="fas fa-arrow-down arch-arrow"></i>
+                            <div class="arch-box" style="background: var(--primary-color); color: white; border-color: var(--primary-color);">REST API</div>
+                            <i class="fas fa-arrow-down arch-arrow"></i>
+                            <div class="arch-box">Jakarta REST / JAX-RS</div>
+                            <i class="fas fa-arrow-down arch-arrow"></i>
+                            <div class="arch-box">Service Layer</div>
+                            <i class="fas fa-arrow-down arch-arrow"></i>
+                            <div class="arch-box">DAO / JDBC</div>
+                            <i class="fas fa-arrow-down arch-arrow"></i>
+                            <div class="arch-box"><i class="fas fa-database"></i> MySQL</div>
+                        </div>
+                    </div>
+                    
+                    <!-- RECENT REQUESTS -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem;">
+                            <h3 style="margin: 0;">Recent Requests</h3>
+                            <button class="btn btn-outline" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="window.clearHistory()">Clear History</button>
+                        </div>
+                        <div class="api-panel" style="padding: 0;">
+                            <ul class="history-list" id="api-history-list">
+                                <li class="history-item" style="color: var(--text-muted); justify-content: center;">No recent requests</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/api-console.js"></script>
+</body>
+</html>

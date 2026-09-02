@@ -54,6 +54,7 @@ A transparent, non-bypassable workflow state machine:
 - **Technician Assignment**: Admins act as dispatchers, mapping pending requests to specialized technicians.
 - **Category Control**: Dynamic expansion of service categories.
 - **Analytics Dashboard**: Real-time statistical aggregation of system health and request volumes.
+- **API Console**: Interactive developer workspace allowing administrators to test `GET`, `POST`, `PUT`, `PATCH`, and `DELETE` endpoints directly against the live backend REST API.
 
 ### 🌐 Advanced REST Features
 - Complete HTTP verb support (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`).
@@ -250,7 +251,7 @@ The core functionality of FixFlow is governed by a strict state progression:
 | **Update Status** | ✗ | ✓ | ✓ |
 | **Manage Categories** | ✗ | ✗ | ✓ |
 | **System Statistics** | ✗ | ✗ | ✓ |
-
+| **API Console**       | ✗ | ✗ | ✓ |
 ---
 
 ## 🗄️ Database Architecture
